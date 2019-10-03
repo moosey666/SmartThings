@@ -122,7 +122,7 @@ void updated() {
 	atomicState.debug = settings.prefDebugMode
 	
 	// Evohome:
-	atomicState.evohomeEndpoint = 'https://tccna.honeywell.com'
+	atomicState.evohomeEndpoint = 'https://mytotalconnectcomfort.com'
 	atomicState.evohomeAuth = [tokenLifetimePercentThreshold : 50] // Auth Token will be refreshed when down to 50% of its lifetime.
 	atomicState.evohomeStatusPollInterval = settings.prefEvohomeStatusPollInterval // Poll interval for status updates (minutes).
 	atomicState.evohomeSchedulePollInterval = 60 // Hardcoded to 1hr (minutes).
@@ -502,7 +502,7 @@ private authenticate() {
 	
 	def requestParams = [
 		method: 'POST',
-		uri: 'https://tccna.honeywell.com',
+		uri: 'https://mytotalconnectcomfort.com',
 		path: '/Auth/OAuth/Token',
 		headers: [
 			'Authorization': 'Basic YjAxM2FhMjYtOTcyNC00ZGJkLTg4OTctMDQ4YjlhYWRhMjQ5OnRlc3Q=',
@@ -511,7 +511,7 @@ private authenticate() {
 		],
 		body: [
 			'grant_type':	'password',
-			'scope':	'EMEA-V1-Basic EMEA-V1-Anonymous EMEA-V1-Get-Current-User-Account',
+			'scope':	'EMEA-V1-Basic EMEA-V1-Anonymous EMEA-V1-Get-Current-User-Account EMEA-V1-Get-Location-Installation-Info-By-UserId',
 			'Username':	settings.prefEvohomeUsername,
 			'Password':	settings.prefEvohomePassword
 		]
@@ -574,7 +574,7 @@ private refreshAuthToken() {
 
 	def requestParams = [
 		method: 'POST',
-		uri: 'https://tccna.honeywell.com',
+		uri: 'https://mytotalconnectcomfort.com',
 		path: '/Auth/OAuth/Token',
 		headers: [
 			'Authorization': 'Basic YjAxM2FhMjYtOTcyNC00ZGJkLTg4OTctMDQ4YjlhYWRhMjQ5OnRlc3Q=',
@@ -583,7 +583,7 @@ private refreshAuthToken() {
 		],
 		body: [
 			'grant_type':	'refresh_token',
-			'scope':	'EMEA-V1-Basic EMEA-V1-Anonymous EMEA-V1-Get-Current-User-Account',
+			'scope':	'EMEA-V1-Basic EMEA-V1-Anonymous EMEA-V1-Get-Current-User-Account EMEA-V1-Get-Location-Installation-Info-By-UserId',
 			'refresh_token':	atomicState.evohomeAuth.refreshToken
 		]
 	]
@@ -1358,4 +1358,3 @@ private getNextSwitchpoint(schedule) {
 	
 	return nextSwitchPoint
 }
-  
